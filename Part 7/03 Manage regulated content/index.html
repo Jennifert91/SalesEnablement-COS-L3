@@ -1,0 +1,1345 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="IBM Cloud Object Storage Level 3 Demonstration Guide">
+      
+      
+        <meta name="author" content="Andrew R. Jones (andrewj@us.ibm.com)">
+      
+      
+      
+        <link rel="prev" href="../02%20Explore%20bucket%20configuration/">
+      
+      
+        <link rel="next" href="../04%20Legal%20holds/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.6">
+    
+    
+      
+        <title>Manage regulated content - IBM Cloud Object Storage Level 3 Demonstration Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.35e1ed30.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.356b1318.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="IBM Cloud Object Storage Level 3 Demonstration Guide" class="md-header__button md-logo" aria-label="IBM Cloud Object Storage Level 3 Demonstration Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IBM Cloud Object Storage Level 3 Demonstration Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Manage regulated content
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="IBM Cloud Object Storage Level 3 Demonstration Guide" class="md-nav__button md-logo" aria-label="IBM Cloud Object Storage Level 3 Demonstration Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    IBM Cloud Object Storage Level 3 Demonstration Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 1 - Overview of IBM Cloud Object Storage
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Part 1 - Overview of IBM Cloud Object Storage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%201/01%20Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 2 - Create a COS service
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Part 2 - Create a COS service
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%202/01%20Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%202/02%20Watch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Watch a COS service being created
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%202/03%20ClickThru/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Click through demonstration of a COS service being created
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 3 - Create a Key Protect service and root key
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Part 3 - Create a Key Protect service and root key
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%203/01%20Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%203/02%20Watch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Watch a Key Protect service and root key being created
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%203/03%20ClickThru/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Click through demonstration of a Key Protect service and root key being created
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 4 - Create an service authorization
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Part 4 - Create an service authorization
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%204/01%20Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%204/02%20Watch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Watch a service authorization being created
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%204/03%20ClickThru/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Click through demonstration of a service authorization being created
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 5 - Create an Activity Tracker service
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Part 5 - Create an Activity Tracker service
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%205/01%20Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%205/02%20Watch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Watch an Activity Tracker service being created
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%205/03%20ClickThru/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Click through demonstration of an Activity Tracker service being created
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 6 - Create a COS bucket
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Part 6 - Create a COS bucket
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%206/01%20Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%206/02%20Watch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Watch a COS bucket being created
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%206/03%20ClickThru/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Click through demonstration of a COS bucket being created
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 7 - Create COS objects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Part 7 - Create COS objects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01%20Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02%20Explore%20bucket%20configuration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Explore bucket configuration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Manage regulated content
+  </span>
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04%20Legal%20holds/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Legal holds
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 8 - Using COS Command Line Interfaces
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            Part 8 - Using COS Command Line Interfaces
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%208/01%20Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%208/02%20Manage%20regulated%20content%20with%20COS%20CLIs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manage regulated content
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Part 9 - Understanding COS Identifity and Access Management
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            Part 9 - Understanding COS Identifity and Access Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Part%209/01%20Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../NextSteps/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Next steps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Manage regulated content</h1>
+
+<div><p>Next, follow the steps below to verify the retention policies created for the bucket.</p>
+<p>To complete the next steps, users will be utilizing three (3) browser windows:</p>
+<ul>
+<li>
+<p>Browser window with this demonstration script</p>
+</li>
+<li>
+<p>Browser window with IBM Cloud Portal accessing the COS bucket user interface</p>
+</li>
+<li>
+<p>Browser window with IBM Cloud Activity Tracker</p>
+</li>
+</ul>
+<p>Once all windows are started, arrange them on separate monitors if available or resize the windows so they are all visible at same time. Note, each page utilizes reactive web interfaces which when resized by hide certain menus or icons.</p>
+<ol>
+<li>
+<p>If not already opened from previous exercise, open a browser window to the cos-l3-with-retention page <a href="https://cloud.ibm.com/objectstorage/crn%3Av1%3Abluemix%3Apublic%3Acloud-object-storage%3Aglobal%3Aa%2Fba0e33c9056f470ca19de009747ec654%3A43d07b21-b680-4d31-9d51-178f582d630c%3A%3A?bucket=cos-l3-with-retention&amp;bucketRegion=us-south&amp;endpoint=s3.us-south.cloud-object-storage.appdomain.cloud&amp;paneId=bucket_overview" target="_blank">here</a>.</p>
+</li>
+<li>
+<p>Open the IBM Cloud Portal Activity Tracker page: <a href="https://cloud.ibm.com/observe/activitytracker" target="_blank">https://cloud.ibm.com/observe/activitytracker</a>.</p>
+</li>
+</ol>
+<p>Activity Tracker can also be accessed via the IBM Cloud Portal's left hand navigation hamburger menu under the <strong>Observability</strong> section.</p>
+<ol start="3">
+<li>Click COS-L3-activity-tracker in the table.</li>
+</ol>
+<p><img alt="" src="../_attachments/ActivityTracker.png"></p>
+<p>After the Activity Tracker details page loads, take note of the <strong>7 day Event Search</strong> plan utilized.</p>
+<ol start="4">
+<li>Click <strong>Open Dashboard</strong>.</li>
+</ol>
+<p><img alt="" src="../_attachments/ATDetails.png"></p>
+<p>The <strong>Activity Tracker</strong> Dashboard will open in a new browser tab or window.</p>
+<p>This demonstration script prescriptively specifies steps to take in the <strong>Activity Tracker</strong> Dashboard. Learn more about using <strong>Activity Tracker</strong> <a href="https://cloud.ibm.com/docs/activity-tracker?topic=activity-tracker-getting-started-search" target="_blank">here</a>.</p>
+<ol start="5">
+<li>Click the <strong>Sources</strong> pulldown menu, check the <strong>cloud-object-storage</strong> checkbox, and click <strong>Apply</strong>.</li>
+</ol>
+<p><img alt="" src="../_attachments/ATFilter.png"></p>
+<p>In this step, a filter for <strong>Activity Tracker</strong> is set to minimize the events displayed to only those related to COS. Using filters is very useful, especially when a lot of events are being triggered.</p>
+<p>At this time, there may or may not be events displayed in the <strong>Activity Tracker</strong> Dashboard. Don't worry if there are not any at this point.</p>
+<ol start="6">
+<li>If possible, arrange the two browsers windows side-by-side such that both the <strong>Activity Tracker</strong> Dashboard and the IBM Cloud Portal page for the cos-l3-with-retention are visible.</li>
+</ol>
+<p><img alt="" src="../_attachments/SideBySide.png"></p>
+<ol start="7">
+<li>On the IBM Cloud Portal page, click the <strong>Upload</strong> button on the <strong>Objects</strong> tab of the <strong>cos-l3-with-retention</strong> bucket.</li>
+</ol>
+<p><img alt="" src="../_attachments/ObjectUpload.png"></p>
+<ol start="8">
+<li>Click the <strong>Upload files</strong> button.</li>
+</ol>
+<p><img alt="" src="../_attachments/ObjectUploadDialog.png"></p>
+<ol start="9">
+<li>In the <strong>Choose Files to Upload</strong> dialog, select the first file to upload to COS, and click <strong>Upload</strong>.</li>
+</ol>
+<p><img alt="" src="../_attachments/FileUploadDialog.png"></p>
+<ol start="10">
+<li>Click the up arrow next to the <strong>Organize your objects (advanced)</strong> section of the Upload dialog.</li>
+</ol>
+<p><img alt="" src="../_attachments/ObjectUploadDialog2.png"></p>
+<ol start="11">
+<li>Scroll down to the <strong>Retention</strong> section of the <strong>Organize your objects (advanced)</strong> section.</li>
+</ol>
+<p><img alt="" src="../_attachments/OjbectRetentionDialog.png"></p>
+<p>A couple of items to note. The default <strong>Duration</strong> is set to 1 day. Recall this from the <strong>bucket</strong> settings. Also note, the <strong>eligible for deletion</strong> date should align with the maximum retention value of the <strong>bucket</strong>.</p>
+<ol start="12">
+<li>Change the <strong>Duration</strong> field from <strong>1</strong> to <strong>0</strong> days and click <strong>Upload</strong>.</li>
+</ol>
+<p><img alt="" src="../_attachments/ObjectUploadRetention.png"></p>
+<p>A <strong>Transfers</strong> dialog will appear, and an <strong>Upload Success</strong> message should also be displayed. Clear these by clicking the <strong>x</strong> for each dialog. Additionally, now in the bucket details table, the newly upload object should be listed. Note, use the table search or use the <strong>Object name</strong> sort option in the table to find the uploaded object.</p>
+<p><img alt="" src="../_attachments/TransferUpDialog.png"></p>
+<ol start="13">
+<li>
+<p>Switch to the <strong>Activity Tracker</strong> Dashboard.</p>
+</li>
+<li>
+<p>Click to the left of the <strong>create object</strong> event in the Dashboard that relates to the image that was just uploaded.</p>
+</li>
+</ol>
+<p><img alt="" src="../_attachments/ATObjectCreate.png"></p>
+<p>Note, the <strong>create object</strong> event should be towards the bottom of the listing. Once located, click just to the left of the line in the table. This will expand the entry.</p>
+<p><img alt="" src="../_attachments/ATObjectCreateDetails.png"></p>
+<ol start="15">
+<li>In the IBM Cloud Portal, click the <strong>checkbox</strong> next to the uploaded file.</li>
+</ol>
+<p><img alt="" src="../_attachments/ObjectSelected.png"></p>
+<p>Notice the two new options available: <strong>Download objects</strong> and <strong>Delete objects</strong>.</p>
+<ol start="16">
+<li>Click <strong>Download objects</strong>.</li>
+</ol>
+<p><img alt="" src="../_attachments/ObjectSelectedDownload.png"></p>
+<p>The <strong>Transfers</strong> dialog shows the download progress and success. Dismiss the <strong>Transfers</strong> dialog by clicking the <strong>X</strong> at top right.</p>
+<p><img alt="" src="../_attachments/DownloadDialog.png"></p>
+<ol start="17">
+<li>Select the <strong>checkbox</strong> beside the filename again, and click <strong>Delete objects</strong>.</li>
+</ol>
+<p><img alt="" src="../_attachments/ObjectSelected2.png"></p>
+<p>Based upon the retention policies specified for this object and the bucket, can the object be deleted at this time?</p>
+<ol start="18">
+<li>Enter <strong>Permanently delete</strong> in the text entry field, and click the <strong>Delete</strong> button.</li>
+</ol>
+<p><img alt="" src="../_attachments/PermanentlyDeleteDialog.png"></p>
+<p>Since the object was uploaded with a <strong>0 Day</strong> retention, it can be deleted.</p>
+<ol start="19">
+<li>
+<p>Switch to the <strong>Activity Tracker</strong> Dashboard.</p>
+</li>
+<li>
+<p>Find and expand the two (2) <strong>delete</strong> events in the Dashboard.</p>
+</li>
+</ol>
+<p><img alt="" src="../_attachments/ATObjectDelete.png"></p>
+<p>Once located, click just to the left of each line in the table. This will expand the entry, like the image below. There will often be multiple events logged by <strong>Activity Tracker</strong> from a single user action.</p>
+<p><img alt="" src="../_attachments/ATObjectDeleteDetails.png"></p>
+<p>Take note of the details that <strong>Activity Tracker</strong> logged.</p>
+<p><strong>On the IBM Cloud Portal page, repeat steps seven (7) through 12 to upload another file to COS. This time, on step 12, set the Duration to a value between one (1) and (6).</strong> Recall, the maximum retention period for the bucket is set to 6.</p>
+<p><img alt="" src="../_attachments/UploadObject2.png"></p>
+<p>What will happen if an attempt is made to delete this recently uploaded file?</p>
+<ol start="21">
+<li>On the IBM Cloud Portal page, select the newly uploaded file and click <strong>Delete objects</strong>.</li>
+</ol>
+<p><img alt="" src="../_attachments/DeleteObject2.png"></p>
+<ol start="22">
+<li>In the <strong>Delete object</strong> dialog, enter <strong>Permanently delete</strong> and click the <strong>Delete</strong> button.</li>
+</ol>
+<p>Did the <strong>delete</strong> succeed? Why not?</p>
+<p>A message the like the image below should be displayed stating the delete did not succeed "due to an attached policy".</p>
+<p><img alt="" src="../_attachments/DeleteObject2Failed.png"></p>
+<ol start="23">
+<li>
+<p>Switch to the <strong>Activity Tracker</strong> Dashboard.</p>
+</li>
+<li>
+<p>Locate the two (2) new <strong>delete</strong> events in the Dashboard.</p>
+</li>
+</ol>
+<p>Note, these should show a <strong>warning</strong> status instead of <strong>normal</strong>.</p>
+<p><img alt="" src="../_attachments/ATDeleteObject2Failed.png"></p>
+<ol start="25">
+<li>Expand the first event <strong>delete</strong> event in the Dashboard by clicking just to the left of the entry.</li>
+</ol>
+<p><img alt="" src="../_attachments/ATDeleteObject2Failed2.png"></p>
+<p>Notice the following fields in the event that are now audit ready.</p>
+<p><img alt="" src="../_attachments/ATDeleteObject2FailedDetails.png"></p>
+<p>Because the expiration for the object was set with a three (3) day retention period, the object cannot be removed. This object will remain in COS until either one of the following two actions occur:</p>
+<ul>
+<li>The object is deleted after the 3 day retention period by someone with appropriate permissions.</li>
+<li>The object is automatically deleted after the 7 day expiry occurs as set on the bucket.</li>
+</ul>
+<p>Notice there is a second bucket that has been provisioned with no retention policies: cos-l3-without-retention. Feel free to use this bucket as part of client demonstrations.</p>
+<p>In the next chapter, explore how <strong>legal holds</strong> can be used to further protect regulated data.</p></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 IBM
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      
+    
+  </body>
+</html>
